@@ -18,9 +18,10 @@ interface MindMapNodeProps extends NodeProps<CustomNodeData> {
   onNodeLabelChange?: (nodeId: string, label: string) => void;
   onNodeNotesChange?: (nodeId: string, notes: string) => void;
   onToggleNotes?: (nodeId: string) => void;
+  selected: boolean;
 }
 
-const getNodeStyle = (data: any) => {
+const getNodeStyle = (data: any, selected: boolean) => {
   const style: React.CSSProperties = {
     padding: '12px 20px',
     borderRadius: '8px',
@@ -28,12 +29,12 @@ const getNodeStyle = (data: any) => {
     color: data.style?.textColor || '#333',
     fontSize: data.style?.fontSize ? `${data.style.fontSize}px` : '13px',
     transition: 'all 250ms ease',
-    boxShadow: '0 2px 5px -1px rgba(0,0,0,0.1)',
     width: data.width || 250,
     height: data.height || 'auto',
     textAlign: 'center',
     position: 'relative',
-    border: '1px solid #e5e7eb',
+    border: selected ? '2px solid #3b82f6' : '1px solid #e5e7eb',
+    boxShadow: selected ? '0 0 0 2px rgba(59, 130, 246, 0.2)' : '0 2px 5px -1px rgba(0,0,0,0.1)'
   };
 
   if (data.isCollapsed) {
@@ -66,6 +67,7 @@ const nodeContentStyle: React.CSSProperties = {
 export default memo(({ 
   data, 
   id, 
+  selected,
   onNodeLabelChange, 
   onNodeNotesChange, 
   onToggleNotes 
@@ -117,7 +119,7 @@ export default memo(({
 
   return (
     <div 
-      style={getNodeStyle(data)}
+      style={getNodeStyle(data, selected)}
       className="mindmap-node"
     >
       <Handle 
