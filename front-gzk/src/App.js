@@ -34,13 +34,24 @@ export default function App() {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        fitView
+        minZoom={0.1}
+        maxZoom={4}
+        defaultViewport={{ x: 0, y: 0, zoom: 1.5 }}
       >
-        <Controls />
-        <MiniMap />
         <Background 
           variant="dots"
           gap={12}
           size={1}
+        />
+        <Controls />
+        <MiniMap 
+          style={{ 
+            height: 120,
+            backgroundColor: '#f8f9fa'
+          }} 
+          zoomable
+          pannable
         />
       </ReactFlow>
     </div>

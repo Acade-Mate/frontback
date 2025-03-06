@@ -358,24 +358,14 @@ export default function MindMap() {
       setNodes((nds) =>
         nds.map((n) => {
           if (n.id === nodeId) {
-            return {
-              ...n,
-              data: {
-                ...n.data,
-                isCollapsed,
-              },
-            };
+            return { ...n, data: { ...n.data, isCollapsed } };
           } else if (descendants.includes(n.id)) {
-            return {
-              ...n,
-              hidden: isCollapsed,
-            };
+            return { ...n, hidden: isCollapsed };
           }
           return n;
         })
       );
 
-      // 更新视图，聚焦到被折叠/展开的节点
       updateViewport(nodeId);
     },
     [nodes, edges, setNodes, updateViewport]

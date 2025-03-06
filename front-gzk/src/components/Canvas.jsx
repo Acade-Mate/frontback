@@ -30,7 +30,6 @@ const Canvas = () => {
           variant="dots" 
           gap={12} 
           size={1} 
-          color="#f0f0f0"
         />
         <Controls />
         <MiniMap 

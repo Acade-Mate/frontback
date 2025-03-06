@@ -8,4 +8,6 @@ export interface CustomNodeData {
     textColor?: string;
     fontSize?: number;
   };
+  height?: number;
+  width?: number; // 添加 width 属性
 } 

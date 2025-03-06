@@ -1,6 +1,6 @@
 // 模拟算法服务响应
 export const mockGenerateKnowledgeTree = (fileId: string) => {
-  console.log('📊 生成模拟知识树, fileId:', fileId);
+  console.log(' 生成模拟知识树, fileId:', fileId);
   
   // 这是一个模拟的知识树结构，格式与前端MindMap组件兼容
   const tree = {
@@ -120,6 +120,7 @@ export const mockGenerateKnowledgeTree = (fileId: string) => {
         }
       }
     ]
+    
   };
   
   console.log('✅ 模拟知识树生成完成, 包含', tree.nodes.length, '个节点和', tree.edges.length, '条边');

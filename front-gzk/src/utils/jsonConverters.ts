@@ -26,24 +26,17 @@ export const convertNGPTToMindMap = (ngptData: NGPTData) => {
   const nodes: Node<CustomNodeData>[] = [];
   const edges: Edge[] = [];
 
-  // 转换所有节点
   Object.entries(ngptData).forEach(([id, data]) => {
-    // 创建节点，确保完全符合 MindMap 组件的节点格式
     const node: Node<CustomNodeData> = {
       id,
       type: 'mindmap',
-      // 如果是根节点（没有 Previous），给一个固定位置
       position: data.Previous === null ? { x: 250, y: 200 } : { x: 0, y: 0 },
       data: {
         label: data.Question || 'Root',
         notes: data.Answer,
         isNotesCollapsed: true,
         isCollapsed: false,
-        style: {
-          backgroundColor: defaultStyle.backgroundColor,
-          textColor: defaultStyle.textColor,
-          fontSize: defaultStyle.fontSize,
-        }
+        style: defaultStyle,
       },
       draggable: true,
       selectable: true,
@@ -51,25 +44,15 @@ export const convertNGPTToMindMap = (ngptData: NGPTData) => {
     };
     nodes.push(node);
 
-    // 如果有父节点，创建边
     if (data.Previous) {
-      const edge: Edge = {
+      edges.push({
         id: `edge-${data.Previous}-${id}`,
         source: data.Previous,
         target: id,
         type: 'bezier',
-        markerEnd: {
-          type: MarkerType.ArrowClosed,
-          width: 15,
-          height: 15,
-          color: '#d9d9d9',
-        },
-        style: {
-          strokeWidth: 1.5,
-          stroke: '#d9d9d9',
-        }
-      };
-      edges.push(edge);
+        markerEnd: { type: MarkerType.ArrowClosed, width: 15, height: 15, color: '#d9d9d9' },
+        style: { strokeWidth: 1.5, stroke: '#d9d9d9' },
+      });
     }
   });
 
